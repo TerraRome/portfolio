@@ -1,57 +1,228 @@
 class Project {
   final String name;
-  final String description;
+  final String summary;
   final String image;
-  final String link;
-  Project(this.name, this.description, this.image, this.link);
+
+  final String role;
+  final String problem;
+  final String solution;
+
+  final List<String> techStack;
+  final List<String> contributions;
+  final List<String> challenges;
+
+  Project({
+    required this.name,
+    required this.summary,
+    required this.image,
+    required this.role,
+    required this.problem,
+    required this.solution,
+    required this.techStack,
+    required this.contributions,
+    required this.challenges,
+  });
 }
 
-List<Project> projectList = [
+final List<Project> projectList = [
   Project(
-    'Coffee Application',
-    'Presenting "Coffee" - a Flutter UI application that invites you to indulge in a delightful coffee adventure. Immerse yourself in the world of rich aroma and flavor as you browse through an exquisite selection of specialty coffees. With a user-friendly interface, exploring different blends and discovering their unique details becomes a delightful experience.',
-    'assets/images/coffee.png',
-    'https://github.com/Hamad-Anwar/Coffe-Shop-Beautifull-UI',
+    name: 'Volta',
+    image: 'assets/images/volta.png',
+    role: 'Flutter Developer',
+    summary:
+        'Electric vehicle ecosystem platform for battery swap stations and motorcycle rental services.',
+    problem:
+        'Managing battery swap transactions, vehicle monitoring, and rental services within a single mobile ecosystem.',
+    solution:
+        'Developed a Flutter application that integrates battery swap workflows, motorcycle rental services, payment processes, and real-time operational monitoring.',
+    techStack: [
+      'Flutter',
+      'BLoC',
+      'Dio',
+      'Firebase',
+      'Hive',
+      'GetIt',
+    ],
+    contributions: [
+      'Implemented battery swap workflows',
+      'Integrated QR code scanning',
+      'Developed rental transaction features',
+      'Implemented push notifications',
+      'Implemented offline caching using Hive',
+      'Integrated payment workflows',
+      'Implemented WebView integrations',
+    ],
+    challenges: [
+      'Transaction consistency',
+      'Offline synchronization',
+      'Real-time data updates',
+      'Battery validation workflows',
+    ],
   ),
   Project(
-    'Car Controller Application UI',
-    'Car Control Dashboard is a user-friendly mobile application built using Flutter and powered by GetX for efficient state management. Enjoy a modern and intuitive design that adapts to various screen sizes, Interact with dynamic car controls, including speed, steering, and temperature. Realistic animations enhance the visual appeal, making it feel like you are controlling a real car!',
-    'assets/images/car.png',
-    'https://github.com/Hamad-Anwar/Car-Controller-Getx-Flutter',
+    name: 'SGB (Battery Swap Station)',
+    image: 'assets/images/sgb.png',
+    role: 'Flutter Developer',
+    summary:
+        'Operational application for battery swap station management and battery lifecycle monitoring.',
+    problem:
+        'Battery swap stations require reliable validation and monitoring of battery inventory and transactions.',
+    solution:
+        'Built station-side workflows to support battery validation, inventory monitoring, and operational transactions.',
+    techStack: [
+      'Flutter',
+      'BLoC',
+      'Dio',
+      'Firebase',
+    ],
+    contributions: [
+      'Built battery validation flows',
+      'Implemented QR scanning features',
+      'Integrated backend operational services',
+      'Implemented station monitoring workflows',
+    ],
+    challenges: [
+      'Battery inventory accuracy',
+      'Transaction validation',
+      'Operational reliability',
+    ],
   ),
   Project(
-      'Neumorphic Clockify',
-      'Neumorphic TimeKit is an open-source project that brings together the elegance of a beautifully designed alarm system, an analog clock with a neumorphic touch, and a feature-rich stopwatch. Whether you\'re looking for a functional alarm tool, a stylish desktop clock, or a precise stopwatch, TimeKit has you covered.',
-      'assets/images/alarm.jpg',
-      'https://github.com/Hamad-Anwar/Neumorphic-Analog-Clockify'),
+    name: 'SeMoLis',
+    image: 'assets/images/semolis.png',
+    role: 'Flutter Developer',
+    summary: 'Motorcycle rental and electric vehicle subscription platform.',
+    problem:
+        'Users need a simple process for renting electric motorcycles and managing rental transactions.',
+    solution:
+        'Developed rental management features including registration, transaction workflows, and status monitoring.',
+    techStack: [
+      'Flutter',
+      'BLoC',
+      'Dio',
+      'Firebase',
+    ],
+    contributions: [
+      'Developed rental workflows',
+      'Integrated customer transaction flows',
+      'Implemented status tracking',
+      'Built backend integrations',
+    ],
+    challenges: [
+      'Rental lifecycle management',
+      'Transaction reliability',
+      'User experience optimization',
+    ],
+  ),
   Project(
-      'CUI Aider',
-      'CUI AIDER is an extraordinary application that brings together augmented reality (AR), a robust student portal, intuitive class management, and a comprehensive GPA system, providing an all-encompassing solution for students.Using AR technology, CUI AIDER offers an immersive experience, allowing users to explore the complete university campus virtually. Through AR, students can visualize buildings, navigate with interactive directions, and gain a better understanding of their surroundings.',
-      'assets/images/cui.png',
-      'https://github.com/Hamad-Anwar/'),
+    name: 'Tariq Mobile',
+    image: 'assets/images/tariq.png',
+    role: 'Flutter Developer',
+    summary: 'Digital companion application for Hajj and Umrah pilgrims.',
+    problem:
+        'Pilgrims need accessible guidance and information throughout their worship journey.',
+    solution:
+        'Developed a mobile application that provides worship guidance, schedules, and supporting information.',
+    techStack: [
+      'Flutter',
+      'BLoC',
+      'Dio',
+      'Firebase',
+    ],
+    contributions: [
+      'Built mobile application features',
+      'Integrated backend APIs',
+      'Implemented state management using BLoC',
+      'Developed notification workflows',
+    ],
+    challenges: [
+      'User accessibility',
+      'Content synchronization',
+      'Scalable architecture',
+    ],
+  ),
   Project(
-      'Flutter Music Streaming Application',
-      'A Flutter music streaming application that allows users to play audio files from local storage. The app features a beautiful neumorphic UI design and provides a smooth user experience for browsing and playing music.',
-      'assets/images/player.png',
-      'https://github.com/Hamad-Anwar/Neumorphic-Music_Player-Flutter'),
+    name: 'Driver Attendance & Expense System',
+    image: 'assets/images/driver.png',
+    role: 'Full Stack Developer',
+    summary:
+        'Enterprise solution for attendance tracking, expense reporting, and timesheet management.',
+    problem:
+        'Driver operational reporting was performed manually and required significant administrative effort.',
+    solution:
+        'Built a system to digitize attendance, expense submission, and timesheet verification processes.',
+    techStack: [
+      'React Native',
+      'Laravel',
+      'REST API',
+      'MySQL',
+    ],
+    contributions: [
+      'Developed mobile application',
+      'Developed backend services',
+      'Implemented attendance tracking',
+      'Implemented expense workflows',
+      'Implemented timesheet verification',
+    ],
+    challenges: [
+      'Data consistency',
+      'Offline reporting scenarios',
+      'Operational workflow optimization',
+    ],
+  ),
   Project(
-      'Food Recipe App',
-      'This repository contains a Flutter implementation of a Food Recipe app with a captivating introduction section and impressive animations. It also features a signup and signin page with animations, elegantly presented on a bottom sheet.',
-      'assets/images/recipe.png',
-      'https://github.com/Hamad-Anwar/Food-Recipe-App-Flutter'),
+    name: 'BISPO',
+    image: 'assets/images/bispo.png',
+    role: 'Flutter Developer',
+    summary:
+        'E-commerce platform for fashion product ordering and shipment tracking.',
+    problem:
+        'Customers require transparency regarding their order status throughout the fulfillment process.',
+    solution:
+        'Developed an e-commerce application with ordering, shipment tracking, and order status monitoring.',
+    techStack: [
+      'Flutter',
+      'Dio',
+      'BLoC',
+    ],
+    contributions: [
+      'Developed mobile application',
+      'Implemented order management',
+      'Implemented shipment tracking',
+      'Integrated backend services',
+    ],
+    challenges: [
+      'Order lifecycle tracking',
+      'Real-time status updates',
+      'User experience optimization',
+    ],
+  ),
   Project(
-      'Task Sync Pro',
-      'Welcome to the Beautiful Task Scheduler App repository! This Flutter-based task management application combines elegant design with a robust backend, ensuring a seamless and organized task management experience. From stunning UI to real-time synchronization, this app has you covered.',
-      'assets/images/task.png',
-      'https://github.com/Hamad-Anwar/Task-Sync-Pro-Flutter'),
-  Project(
-      'Flutter Chat Application with Firebase',
-      'Welcome to our innovative Flutter chat application! This feature-rich messaging platform allows users to connect and communicate seamlessly through text and images. The app is built using Flutter for the frontend and integrates with Firebase for backend services, including authentication, real-time database, and storage.',
-      'assets/images/chat.png',
-      'https://github.com/Hamad-Anwar/Messenger-App-Backend-Firebase'),
-  Project(
-      'Doctor Appointment Application',
-      'Introducing the extraordinary "Doctor Appointment System" - a state-of-the-art Flutter UI application that redefines healthcare accessibility and efficiency. Seamlessly crafted, this app empowers users to effortlessly select doctors based on categories, engage in smooth messaging, and access detailed profiles.',
-      'assets/images/doctor.png',
-      'https://github.com/Hamad-Anwar/Doctor-Appointment-Application-UI'),
+    name: 'TomsirApps',
+    image: 'assets/images/tomsir.png',
+    role: 'Full Stack Developer',
+    summary:
+        'Food and beverage ordering platform with inventory and cash management.',
+    problem:
+        'Business operations required a centralized solution for sales, inventory, and financial tracking.',
+    solution:
+        'Built a mobile and backend solution for ordering, stock management, and cash flow monitoring.',
+    techStack: [
+      'React Native',
+      'Node.js',
+      'Express',
+      'Redux',
+    ],
+    contributions: [
+      'Developed mobile application',
+      'Developed backend APIs',
+      'Implemented stock management',
+      'Implemented cash management workflows',
+    ],
+    challenges: [
+      'Inventory synchronization',
+      'Transaction management',
+      'Scalable backend architecture',
+    ],
+  ),
 ];

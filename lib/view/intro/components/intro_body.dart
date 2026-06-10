@@ -2,11 +2,13 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import '../../../res/constants.dart';
 import '../../../view model/responsive.dart';
+import '../photo_profile.dart';
 import 'animated_texts_componenets.dart';
 import 'combine_subtitle.dart';
 import 'description_text.dart';
 import 'download_button.dart';
 import 'headline_text.dart';
+
 class IntroBody extends StatelessWidget {
   const IntroBody({super.key});
   @override
@@ -29,10 +31,7 @@ class IntroBody extends StatelessWidget {
                     SizedBox(
                       width: size.width * 0.23,
                     ),
-                    const AnimatedImageContainer(
-                      width: 150,
-                      height: 200,
-                    ),
+                    const AnimatedProfileCircle(size: 240),
                   ],
                 ),
               if (!Responsive.isDesktop(context))
@@ -65,7 +64,7 @@ class IntroBody extends StatelessWidget {
           ),
         ),
         const Spacer(),
-        if (Responsive.isDesktop(context)) const AnimatedImageContainer(),
+        if (Responsive.isDesktop(context)) const AnimatedProfileCircle(),
         const Spacer()
       ],
     );

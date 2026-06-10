@@ -14,7 +14,7 @@ class AnimatedDescriptionText extends StatelessWidget {
       duration: const Duration(milliseconds: 200),
       builder: (context, value, child) {
         return Text(
-          'I\'m capable of creating excellent mobile apps, handling${Responsive.isLargeMobile(context) ? '\n' : ''}every step from ${!Responsive.isLargeMobile(context) ? '\n' : ''}concept to deployment.',
+          'Specialized in Flutter, BLoC, Firebase, ${Responsive.isLargeMobile(context) ? '\n' : ''}offline-first architecture, ${!Responsive.isLargeMobile(context) ? '\n' : ''}and payment integrations.',
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
           style: TextStyle(color: Colors.grey, wordSpacing: 2, fontSize: value),
