@@ -43,7 +43,7 @@ The portfolio website is built using Flutter, a powerful open-source UI software
 - [url_launcher](https://pub.dev/packages/url_launcher): Enables easy integration with external links, allowing visitors to quickly navigate to external resources.
 - [font_awesome_flutter](https://pub.dev/packages/font_awesome_flutter): Introduces a wide variety of customizable icons from the FontAwesome library, enhancing the visual representation of the website's features.
 
-## Getting Started
+<!-- ## Getting Started
 
 To explore and interact with the portfolio website on your local machine, follow these steps:
 
@@ -52,7 +52,7 @@ To explore and interact with the portfolio website on your local machine, follow
 2. **Install Dependencies:**
    flutter pub get
 3. **Run Application**
-   flutter run
+   flutter run -->
 
 ## Usage Guide
 
@@ -63,17 +63,16 @@ Once the website is up and running, you'll find a range of sections to explore:
 - **Certifications:** Explore my certifications, gaining insight into my professional development journey.
 - **Contact:** Reach out to me through provided contact details or social media links.
 
-
 ## Contributions
 
 I welcome contributions and suggestions from the community! If you come across any issues, have ideas for improvements, or wish to contribute in any way, feel free to open an issue or submit a pull request. Let's collaborate to make this portfolio even better!
 
-## Contact Me
+<!-- ## Contact Me
 
 Your feedback and thoughts are highly valued. Feel free to connect with me through:
 
 - **Email:** rh676838@gmail.com
-- **LinkedIn:** [Hamad Anwar](https://www.linkedin.com/in/hamad-anwar)
+- **LinkedIn:** [Hamad Anwar](https://www.linkedin.com/in/hamad-anwar) -->
 
 ## License
 
