@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <!--
     If you are serving your web app in a path other than the root, change the
@@ -14,22 +14,134 @@
     This is a placeholder for base href that will be replaced by the value of
     the `--base-href` argument provided to `flutter build`.
   -->
+  <base href="$FLUTTER_BASE_HREF">
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <!-- TODO(owner): replace https://example.com with the real domain everywhere (canonical, og:url, og:image, twitter:image, robots.txt, sitemap.xml). -->
+  <title>Tengku Alfarizi — Flutter &amp; Mobile Engineer | Portfolio</title>
+  <meta name="description" content="Flutter and mobile engineer with 4+ years shipping offline-first apps: BLoC state management, Firebase, REST APIs, and payment integrations on iOS and Android.">
+  <meta name="author" content="Tengku Alfarizi">
+  <link rel="canonical" href="https://example.com/">
+
+  <meta name="theme-color" content="#0D1514" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#F5F2ED" media="(prefers-color-scheme: light)">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="profile">
+  <meta property="og:site_name" content="Tengku Alfarizi">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="id_ID">
+  <meta property="og:title" content="Tengku Alfarizi — Flutter &amp; Mobile Engineer | Portfolio">
+  <meta property="og:description" content="Flutter and mobile engineer with 4+ years shipping offline-first apps: BLoC state management, Firebase, REST APIs, and payment integrations on iOS and Android.">
+  <meta property="og:url" content="https://example.com/">
+  <meta property="og:image" content="https://example.com/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Tengku Alfarizi — Flutter &amp; Mobile Engineer">
+  <meta property="profile:first_name" content="Tengku">
+  <meta property="profile:last_name" content="Alfarizi">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Tengku Alfarizi — Flutter &amp; Mobile Engineer | Portfolio">
+  <meta name="twitter:description" content="Flutter and mobile engineer with 4+ years shipping offline-first apps: BLoC state management, Firebase, REST APIs, and payment integrations on iOS and Android.">
+  <meta name="twitter:image" content="https://example.com/og-image.png">
 
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="flutter_portfolio">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Tengku Alfarizi">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
 
-  <title>flutter_portfolio</title>
   <link rel="manifest" href="manifest.json">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Tengku Alfarizi",
+    "jobTitle": "Flutter & Mobile Engineer",
+    "email": "mailto:tengku.alfarizi1@gmail.com",
+    "description": "Flutter and mobile engineer with 4+ years of experience building offline-first mobile applications with BLoC, Firebase, REST APIs, and payment integrations.",
+    "url": "https://example.com/",
+    "image": "https://example.com/og-image.png",
+    "sameAs": [
+      "https://github.com/TerraRome",
+      "https://gitlab.com/TerraRo",
+      "https://www.linkedin.com/in/tengku-alfarizi-a645b7249/"
+    ],
+    "knowsAbout": [
+      "Flutter",
+      "Dart",
+      "Firebase",
+      "BLoC",
+      "REST APIs",
+      "Offline-first architecture",
+      "Payment integration"
+    ]
+  }
+  </script>
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background-color: #0D1514;
+      color-scheme: dark light;
+    }
+    /* Pre-render splash: fixed overlay, so mounting the Flutter canvas cannot shift layout. */
+    #hermes-splash {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #0D1514;
+      z-index: 2147483647;
+      transition: opacity 400ms ease;
+    }
+    #hermes-splash[hidden] {
+      display: none;
+    }
+    #hermes-splash.is-done {
+      opacity: 0;
+      pointer-events: none;
+    }
+    #hermes-splash .hermes-bar {
+      width: 96px;
+      height: 2px;
+      border-radius: 1px;
+      background-color: rgba(203, 163, 116, 0.2);
+      overflow: hidden;
+    }
+    #hermes-splash .hermes-bar::after {
+      content: "";
+      display: block;
+      width: 40%;
+      height: 100%;
+      background-color: #CBA374;
+      animation: hermes-slide 1.1s ease-in-out infinite;
+    }
+    @keyframes hermes-slide {
+      0%   { transform: translateX(-100%); }
+      100% { transform: translateX(250%); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #hermes-splash .hermes-bar::after { animation: none; width: 100%; }
+    }
+    @media (prefers-color-scheme: light) {
+      html, body { background-color: #F5F2ED; }
+      #hermes-splash { background-color: #F5F2ED; }
+    }
+  </style>
 
   <script>
     // The value below is injected by flutter build, do not touch.
@@ -39,7 +151,23 @@
   <script src="flutter.js" defer></script>
 </head>
 <body>
+  <div id="hermes-splash" aria-hidden="true">
+    <div class="hermes-bar"></div>
+  </div>
+
   <script>
+    (function () {
+      var splash = document.getElementById('hermes-splash');
+      function hideSplash() {
+        if (!splash || splash.classList.contains('is-done')) return;
+        splash.classList.add('is-done');
+        setTimeout(function () { splash.hidden = true; }, 420);
+      }
+      window.addEventListener('flutter-first-frame', hideSplash);
+      // Safety net: never trap the app behind the splash if the event is not emitted.
+      setTimeout(hideSplash, 15000);
+    })();
+
     window.addEventListener('load', function(ev) {
       // Download main.dart.js
       _flutter.loader.loadEntrypoint({

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# TODO(owner): replace with the real domain once confirmed.
+Sitemap: https://example.com/sitemap.xml
