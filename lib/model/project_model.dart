@@ -270,14 +270,49 @@ const List<Project> projectList = [
     role: 'Mobile Developer (Flutter)',
     year: '2023 — Present',
     summary:
-        'Electric motorcycle rental and subscription flows with transaction tracking.',
+        'Rent-to-own electric motorcycle app: daily rental, battery swap stations and balance tracking.',
     problem:
-        'Renting an electric motorcycle required manual paperwork and left rental status unclear.',
+        'Renting an electric motorcycle meant paperwork at a counter, and riders had no way to see '
+        'their contract, payment schedule or remaining balance without calling an agent.',
     solution:
-        'Developed rental registration, transaction workflows and live status tracking inside the Volta app.',
-    techStack: ['Flutter', 'BLoC', 'Dio', 'Firebase'],
+        'Built the rider app end to end — registration, rental plan selection, IoT-backed bike unlock, '
+        'battery swap station lookup and an in-app balance for the 660-day rent-to-own contract.',
+    image: 'assets/images/projects/semolis.webp',
+    imageAlt: 'Semolis logo',
+    links: [
+      ProjectLink(label: 'Website', url: 'https://www.sewamotorlistrik.com/'),
+    ],
+    // Ordered as the rider walks the app: sign in, Home, then the rental flow.
+    gallery: [
+      ProjectShot(
+        asset: 'assets/images/projects/semolis/login.webp',
+        label: 'Login',
+      ),
+      ProjectShot(
+        asset: 'assets/images/projects/semolis/home.webp',
+        label: 'Home',
+      ),
+      ProjectShot(
+        asset: 'assets/images/projects/semolis/rent.webp',
+        label: 'Rent a bike',
+      ),
+      ProjectShot(
+        asset: 'assets/images/projects/semolis/list-sgb.webp',
+        label: 'Swap stations',
+      ),
+      ProjectShot(
+        asset: 'assets/images/projects/semolis/detail-sgb.webp',
+        label: 'Station detail',
+      ),
+      ProjectShot(
+        asset: 'assets/images/projects/semolis/balance.webp',
+        label: 'Balance',
+      ),
+    ],
+    techStack: ['Flutter', 'BLoC', 'Dio', 'Firebase', 'IoT'],
     impact: [
-      'Rental status visible end-to-end instead of confirmed by phone.',
+      'Riders pick a plan, pay and see contract status in the app instead of at a counter.',
+      'Battery swap stations are reachable in-app, so a low battery never strands a rider.',
     ],
   ),
   Project(

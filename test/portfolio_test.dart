@@ -115,6 +115,38 @@ void main() {
     expect(find.text('ReCharge — Powerbank Sharing'), findsOneWidget);
   });
 
+  // SeMoLis ships the same case-study treatment: banner, link, screenshot strip.
+  testWidgets('semolis card and modal expose the website link', (tester) async {
+    final semolis = projectList.firstWhere((p) => p.name.startsWith('SeMoLis'));
+    expect(semolis.links.single.url, 'https://www.sewamotorlistrik.com/');
+    expect(semolis.image, 'assets/images/projects/semolis.webp');
+    expect(semolis.gallery.length, 6);
+
+    await tester.binding.setSurfaceSize(const Size(1440, 900));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    await tester.pumpWidget(const PortfolioApp());
+    await tester.pump(const Duration(milliseconds: 300));
+
+    final scrollable = find.byType(Scrollable).first;
+    for (var i = 0; i < 20; i++) {
+      await tester.drag(scrollable, const Offset(0, -400));
+      await tester.pump(const Duration(milliseconds: 30));
+    }
+
+    // No pumpAndSettle: the portrait has a perpetual float animation.
+    await tester.ensureVisible(find.text(semolis.name));
+    await tester.pump(const Duration(milliseconds: 300));
+    await tester.tap(find.text(semolis.name));
+    await tester.pump(const Duration(milliseconds: 400));
+
+    expect(tester.takeException(), isNull);
+    expect(find.text('Links'), findsOneWidget);
+    expect(
+      assetNamesOf(tester),
+      containsAll(semolis.gallery.take(5).map((s) => s.asset)),
+    );
+  });
+
   // Volta's case-study modal must show the screenshot evidence strip.
   testWidgets('volta modal shows screenshots', (tester) async {
     await tester.binding.setSurfaceSize(const Size(1440, 900));
