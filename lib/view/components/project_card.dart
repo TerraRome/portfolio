@@ -216,7 +216,6 @@ class _ProjectCardState extends State<ProjectCard> {
         ),
       );
     }
-    if (p.preview != null) return _PreviewPanel(preview: p.preview!);
     return _FallbackPanel(project: p, height: height);
   }
 }
@@ -311,58 +310,6 @@ class _FallbackPanel extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-/// Hand-tinted, no highlighting package. Clips instead of overflowing.
-class _PreviewPanel extends StatelessWidget {
-  const _PreviewPanel({required this.preview});
-
-  final ProjectPreview preview;
-
-  @override
-  Widget build(BuildContext context) {
-    final h = context.hermes;
-    final lines = preview.code.split('\n').take(10).join('\n');
-
-    return ColoredBox(
-      color: h.surface,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(spacingMd, spacingMd, spacingSm, 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              preview.caption.t,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                    fontSize: 11,
-                    color: h.muted,
-                  ),
-            ),
-            const SizedBox(height: spacingSm),
-            Expanded(
-              child: ClipRect(
-                child: SingleChildScrollView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  child: Text(
-                    lines,
-                    softWrap: false,
-                    style: TextStyle(
-                      fontFamily: 'monospace',
-                      fontSize: 11,
-                      height: 1.5,
-                      color: h.body,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

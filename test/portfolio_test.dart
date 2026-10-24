@@ -223,6 +223,27 @@ void main() {
     expect(find.text('Website'), findsWidgets);
   });
 
+  // SigApp has no screenshot: it must fall back to the text panel (its first
+  // tech as the monogram), not an empty box or a code snippet.
+  testWidgets('sigapp uses the text panel', (tester) async {
+    final sigapp = projectList.firstWhere((p) => p.name.startsWith('SigApp'));
+    expect(sigapp.image, isNull);
+
+    await tester.binding.setSurfaceSize(const Size(375, 812));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    await tester.pumpWidget(const PortfolioApp());
+    await tester.pump(const Duration(milliseconds: 300));
+
+    final scrollable = find.byType(Scrollable).first;
+    for (var i = 0; i < 30; i++) {
+      await tester.drag(scrollable, const Offset(0, -400));
+      await tester.pump(const Duration(milliseconds: 30));
+    }
+    expect(tester.takeException(), isNull);
+    expect(find.text(sigapp.name.toUpperCase()), findsOneWidget);
+    expect(find.text(sigapp.techStack.first), findsWidgets);
+  });
+
   // Every screenshot referenced by the data must actually be bundled.
   testWidgets('recharge card and modal expose the website link', (tester) async {
     final recharge = projectList.firstWhere((p) => p.name.startsWith('ReCharge'));

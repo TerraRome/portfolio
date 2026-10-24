@@ -28,19 +28,6 @@ enum ProjectStatus {
       };
 }
 
-/// Non-visual projects get a code snippet instead of a screenshot.
-class ProjectPreview {
-  const ProjectPreview({
-    required this.caption,
-    required this.code,
-    this.language = 'dart',
-  });
-
-  final Loc caption;
-  final String code;
-  final String language;
-}
-
 class ProjectLink {
   const ProjectLink({required this.label, required this.url});
   final Loc label;
@@ -66,7 +53,6 @@ class Project {
     this.year = '',
     this.image,
     this.imageAlt = '',
-    this.preview,
     this.impact = const [],
     this.links = const [],
     this.gallery = const [],
@@ -85,9 +71,6 @@ class Project {
   /// Asset path. Null → designed fallback card, never a broken image.
   final String? image;
   final String imageAlt;
-
-  /// Shown when there is no screenshot to show.
-  final ProjectPreview? preview;
 
   /// Measurable outcomes. Empty list → section omitted.
   final List<Loc> impact;
@@ -324,20 +307,6 @@ const List<Project> projectList = [
         'Empat tahun menangani klien mobile, konsol web, dan backend sekaligus.',
       ),
     ],
-    preview: ProjectPreview(
-      caption: Loc('Illustrative — timesheet approval', 'Ilustrasi — persetujuan timesheet'),
-      language: 'php',
-      code: '''public function approve(Timesheet \$sheet): Timesheet
-{
-    abort_unless(\$sheet->status === 'pending', 409);
-    \$sheet->update([
-        'status' => 'approved',
-        'approved_by' => auth()->id(),
-        'approved_at' => now(),
-    ]);
-    return \$sheet;
-}''',
-    ),
   ),
   Project(
     name: 'BISPO — Fashion Commerce',
