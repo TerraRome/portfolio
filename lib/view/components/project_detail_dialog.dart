@@ -83,7 +83,7 @@ class ProjectDetailDialog extends StatelessWidget {
                             ),
                             const SizedBox(height: spacingXs),
                             Text(
-                              [project.role, project.year]
+                              [project.role.t, project.year]
                                   .where((s) => s.isNotEmpty)
                                   .join(' · '),
                               style: theme.bodySmall?.copyWith(color: h.muted),
@@ -107,15 +107,15 @@ class ProjectDetailDialog extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        if (project.problem.isNotEmpty)
+                        if (project.problem.t.isNotEmpty)
                           _Block(
                             title: s.modalProblem,
-                            child: _Paragraph(project.problem),
+                            child: _Paragraph(project.problem.t),
                           ),
-                        if (project.solution.isNotEmpty)
+                        if (project.solution.t.isNotEmpty)
                           _Block(
                             title: s.modalSolution,
-                            child: _Paragraph(project.solution),
+                            child: _Paragraph(project.solution.t),
                           ),
                         if (project.impact.isNotEmpty)
                           _Block(
@@ -124,7 +124,7 @@ class ProjectDetailDialog extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 for (final item in project.impact)
-                                  _Bullet(item),
+                                  _Bullet(item.t),
                               ],
                             ),
                           ),
@@ -156,7 +156,7 @@ class ProjectDetailDialog extends StatelessWidget {
                               children: [
                                 for (final link in project.links)
                                   TextLink(
-                                    label: link.label,
+                                    label: link.label.t,
                                     icon: Icons.north_east,
                                     onTap: () => openUrl(link.url),
                                   ),
@@ -270,7 +270,7 @@ class _Gallery extends StatelessWidget {
               Expanded(
                 child: Semantics(
                   button: true,
-                  label: shot.label,
+                  label: shot.label.t,
                   child: InkWell(
                     onTap: () => _openFullSize(context, shot),
                     borderRadius: BorderRadius.circular(radiusButton),
@@ -297,7 +297,7 @@ class _Gallery extends StatelessWidget {
               SizedBox(
                 width: 132,
                 child: Text(
-                  shot.label,
+                  shot.label.t,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: theme.labelSmall?.copyWith(color: h.muted),
@@ -338,7 +338,7 @@ class _Gallery extends StatelessWidget {
                   ),
                   const SizedBox(height: spacingSm),
                   Text(
-                    shot.label,
+                    shot.label.t,
                     style: Theme.of(dialogContext)
                         .textTheme
                         .labelSmall

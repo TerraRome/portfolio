@@ -59,7 +59,7 @@ class _EducationRow extends StatelessWidget {
     final degree = Padding(
       padding: const EdgeInsets.only(top: 3),
       child: Text(
-        entry.degree,
+        entry.degree.t,
         style: theme.bodySmall?.copyWith(color: h.copperInk),
       ),
     );

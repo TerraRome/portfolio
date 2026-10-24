@@ -86,7 +86,7 @@ class _TimelineEntry extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    entry.period.toUpperCase(),
+                    entry.period.t.toUpperCase(),
                     style: theme.labelSmall?.copyWith(
                       letterSpacing: 0.14,
                       color: h.muted,
@@ -94,7 +94,7 @@ class _TimelineEntry extends StatelessWidget {
                   ),
                   const SizedBox(height: spacingXs),
                   Text(
-                    entry.position,
+                    entry.position.t,
                     style: theme.titleLarge?.copyWith(
                       fontSize: 20,
                       color: h.fg,
@@ -125,7 +125,7 @@ class _TimelineEntry extends StatelessWidget {
                           ),
                           Expanded(
                             child: Text(
-                              bullet,
+                              bullet.t,
                               style: theme.bodyMedium?.copyWith(
                                 color: h.body,
                                 height: 1.6,

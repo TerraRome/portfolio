@@ -39,7 +39,7 @@ class _ProjectCardState extends State<ProjectCard> {
 
     return Semantics(
       button: true,
-      label: '${p.name}. ${p.status.label}. ${p.summary}',
+      label: '${p.name}. ${p.status.label}. ${p.summary.t}',
       onTap: widget.onOpen,
       child: FocusableActionDetector(
         mouseCursor: SystemMouseCursors.click,
@@ -123,7 +123,9 @@ class _ProjectCardState extends State<ProjectCard> {
                         ),
                         const SizedBox(height: 2),
                         Text(
-                          [p.role, p.year].where((s) => s.isNotEmpty).join(' · '),
+                          [p.role.t, p.year]
+                              .where((s) => s.isNotEmpty)
+                              .join(' · '),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context)
@@ -135,7 +137,7 @@ class _ProjectCardState extends State<ProjectCard> {
                         SizedBox(
                           height: 42,
                           child: Text(
-                            p.summary,
+                            p.summary.t,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: Theme.of(context)
@@ -178,7 +180,7 @@ class _ProjectCardState extends State<ProjectCard> {
                             for (final link in p.links)
                               Flexible(
                                 child: TextLink(
-                                  label: link.label,
+                                  label: link.label.t,
                                   icon: Icons.north_east,
                                   onTap: () => openUrl(link.url),
                                 ),
@@ -333,7 +335,7 @@ class _PreviewPanel extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              preview.caption,
+              preview.caption.t,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: Theme.of(context).textTheme.labelSmall?.copyWith(

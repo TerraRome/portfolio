@@ -1,5 +1,17 @@
 import 'package:flutter/widgets.dart';
 
+/// Bilingual *content* string (project copy, CV bullets). The data lists stay
+/// `const` and nothing is duplicated per language; `t` reads the active
+/// language at call time.
+class Loc {
+  const Loc(this.en, this.id);
+
+  final String en;
+  final String id;
+
+  String get t => appStrings.value.code == 'ID' ? id : en;
+}
+
 /// UI copy only — no intl package, no codegen. Project and certificate data
 /// stay in English because it is technical content.
 class AppStrings {
@@ -55,6 +67,9 @@ class AppStrings {
     required this.modalScreens,
     required this.modalLinks,
     required this.modalClose,
+    required this.statusLive,
+    required this.statusInProgress,
+    required this.statusComingSoon,
   });
 
   /// Locale tag shown in the nav toggle: EN / ID.
@@ -121,6 +136,10 @@ class AppStrings {
   final String modalScreens;
   final String modalLinks;
   final String modalClose;
+
+  final String statusLive;
+  final String statusInProgress;
+  final String statusComingSoon;
 
   String showAllProjects(int count) => showAll.replaceFirst('{n}', '$count');
 }
@@ -192,6 +211,9 @@ const AppStrings en = AppStrings(
   modalScreens: 'Screens',
   modalLinks: 'Links',
   modalClose: 'Close',
+  statusLive: 'Live',
+  statusInProgress: 'In Progress',
+  statusComingSoon: 'Coming Soon',
 );
 
 const AppStrings id = AppStrings(
@@ -265,6 +287,9 @@ const AppStrings id = AppStrings(
   modalScreens: 'Tangkapan layar',
   modalLinks: 'Tautan',
   modalClose: 'Tutup',
+  statusLive: 'Live',
+  statusInProgress: 'Sedang Dikerjakan',
+  statusComingSoon: 'Segera Hadir',
 );
 
 /// English by default; the nav toggle flips this.

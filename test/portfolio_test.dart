@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_portfolio/main.dart';
 import 'package:flutter_portfolio/model/project_model.dart';
+import 'package:flutter_portfolio/res/strings.dart';
 import 'package:flutter_portfolio/res/theme_mode.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -21,6 +22,13 @@ Set<String> assetNamesOf(WidgetTester tester) {
 }
 
 void main() {
+  // `appStrings` and `themeMode` are global notifiers: reset them so a test
+  // that toggles either cannot leak state into the next one.
+  setUp(() {
+    appStrings.value = en;
+    themeMode.value = ThemeMode.dark;
+  });
+
   test('sortedProjects: live first, every project kept', () {
     final sorted = sortedProjects(projectList);
     expect(sorted.length, projectList.length);
@@ -178,7 +186,7 @@ void main() {
       containsAll(volta.gallery.take(5).map((s) => s.asset)),
     );
     for (final shot in volta.gallery.take(5)) {
-      expect(find.text(shot.label), findsOneWidget);
+      expect(find.text(shot.label.t), findsOneWidget);
     }
   });
 
@@ -224,6 +232,50 @@ void main() {
       final data = await rootBundle.load(shot);
       expect(data.lengthInBytes, greaterThan(1000), reason: shot);
     }
+  });
+
+  // Project content — not just UI chrome — must follow the language toggle.
+  testWidgets('project content switches to Indonesian', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(1440, 900));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    await tester.pumpWidget(const PortfolioApp());
+    await tester.pump(const Duration(milliseconds: 300));
+
+    final volta = projectList.firstWhere((p) => p.name.startsWith('Volta'));
+    expect(find.text(volta.summary.en), findsWidgets);
+
+    await tester.tap(find.text('ID'));
+    await tester.pump(const Duration(milliseconds: 300));
+    expect(tester.takeException(), isNull);
+
+    // Card copy is Indonesian now, and the English string is gone.
+    expect(find.text(volta.summary.id), findsWidgets);
+    expect(find.text(volta.summary.en), findsNothing);
+
+    // Modal copy too, including the screenshot captions.
+    final scrollable = find.byType(Scrollable).first;
+    for (var i = 0; i < 20; i++) {
+      await tester.drag(scrollable, const Offset(0, -400));
+      await tester.pump(const Duration(milliseconds: 30));
+    }
+    await tester.ensureVisible(find.text(volta.name));
+    await tester.pump(const Duration(milliseconds: 300));
+    await tester.tap(find.text(volta.name));
+    await tester.pump(const Duration(milliseconds: 400));
+
+    expect(find.text('Tangkapan layar'), findsOneWidget);
+    expect(find.text('Tautan'), findsOneWidget);
+    expect(find.text(volta.gallery.first.label.id), findsWidgets);
+    expect(find.text('Situs Web'), findsWidgets);
+
+    // The modal is a route over the nav bar, so close it before toggling back.
+    await tester.tap(find.byIcon(Icons.close));
+    await tester.pump(const Duration(milliseconds: 400));
+
+    await tester.tap(find.text('EN'));
+    await tester.pump(const Duration(milliseconds: 300));
+    expect(find.text(volta.summary.en), findsWidgets);
+    expect(find.text(volta.summary.id), findsNothing);
   });
 
   // Bilingual layer: the toggle must swap copy without a rebuild exception.
