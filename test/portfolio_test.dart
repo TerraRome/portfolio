@@ -74,9 +74,9 @@ void main() {
     }
   }
 
-  // The only project with a screenshot must lead the grid and actually load.
-  testWidgets('volta card leads and renders its webp', (tester) async {
-    expect(sortedProjects(projectList).first.name, contains('Volta'));
+  // ReCharge is the first live project with a screenshot, so it leads the grid.
+  testWidgets('recharge card leads and renders its banner', (tester) async {
+    expect(sortedProjects(projectList).first.name, contains('ReCharge'));
 
     await tester.binding.setSurfaceSize(const Size(1440, 900));
     addTearDown(() => tester.binding.setSurfaceSize(null));
@@ -98,7 +98,7 @@ void main() {
     final assetImage = find.byWidgetPredicate(
       (w) =>
           w is Image &&
-          assetNameOf(w.image) == 'assets/images/projects/volta-light.webp',
+          assetNameOf(w.image) == 'assets/images/projects/recharge/main-image.png',
     );
     expect(assetImage, findsOneWidget);
   });
@@ -224,6 +224,39 @@ void main() {
   });
 
   // Every screenshot referenced by the data must actually be bundled.
+  testWidgets('recharge card and modal expose the website link', (tester) async {
+    final recharge = projectList.firstWhere((p) => p.name.startsWith('ReCharge'));
+    expect(recharge.links.single.url, 'https://www.recharge.id/');
+    expect(recharge.image, 'assets/images/projects/recharge/main-image.png');
+    expect(recharge.gallery.length, 6);
+    expect(recharge.gallery.first.label.en, 'Login');
+
+    await tester.binding.setSurfaceSize(const Size(1440, 900));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    await tester.pumpWidget(const PortfolioApp());
+    await tester.pump(const Duration(milliseconds: 300));
+
+    final scrollable = find.byType(Scrollable).first;
+    for (var i = 0; i < 20; i++) {
+      await tester.drag(scrollable, const Offset(0, -400));
+      await tester.pump(const Duration(milliseconds: 30));
+    }
+
+    // No pumpAndSettle: the portrait has a perpetual float animation.
+    await tester.ensureVisible(find.text(recharge.name));
+    await tester.pump(const Duration(milliseconds: 300));
+    await tester.tap(find.text(recharge.name));
+    await tester.pump(const Duration(milliseconds: 400));
+
+    expect(tester.takeException(), isNull);
+    expect(find.text('Screens'), findsOneWidget);
+    expect(find.text('Website'), findsWidgets);
+    expect(
+      assetNamesOf(tester),
+      containsAll(recharge.gallery.take(5).map((s) => s.asset)),
+    );
+  });
+
   testWidgets('volta gallery assets resolve from the bundle', (tester) async {
     for (final shot in projectList
         .expand((p) => p.gallery)

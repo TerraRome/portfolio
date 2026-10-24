@@ -171,18 +171,38 @@ const List<Project> projectList = [
             'satu codebase.',
       ),
     ],
-    preview: ProjectPreview(
-      caption: Loc('Illustrative — rental flow boundary', 'Ilustrasi — batas alur sewa'),
-      code: '''class RentalRepository {
-  Future<Rental> start(String stationQr) async {
-    final station = await _api.resolveStation(stationQr);
-    if (!station.hasAvailable) throw RentalError.noStock;
-    final rental = await _api.createRental(station.id);
-    _cache.write(rental.id, rental);
-    return rental;
-  }
-}''',
-    ),
+    image: 'assets/images/projects/recharge/main-image.png',
+    imageAlt: 'ReCharge banner',
+    links: [
+      ProjectLink(label: _website, url: 'https://www.recharge.id/'),
+    ],
+    // Ordered as the user walks the app: sign in, Home, then the rental flow.
+    gallery: [
+      ProjectShot(
+        asset: 'assets/images/projects/recharge/login.webp',
+        label: Loc('Login', 'Masuk'),
+      ),
+      ProjectShot(
+        asset: 'assets/images/projects/recharge/home.webp',
+        label: Loc('Home', 'Beranda'),
+      ),
+      ProjectShot(
+        asset: 'assets/images/projects/recharge/paket.webp',
+        label: Loc('Packages', 'Paket'),
+      ),
+      ProjectShot(
+        asset: 'assets/images/projects/recharge/buy-packages.webp',
+        label: Loc('Buy packages', 'Beli paket'),
+      ),
+      ProjectShot(
+        asset: 'assets/images/projects/recharge/payment-overview.webp',
+        label: Loc('Payment overview', 'Ringkasan pembayaran'),
+      ),
+      ProjectShot(
+        asset: 'assets/images/projects/recharge/profile.webp',
+        label: Loc('Profile', 'Profil'),
+      ),
+    ],
   ),
   Project(
     name: 'Volta — EV Monitoring',
