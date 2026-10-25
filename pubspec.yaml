@@ -65,6 +65,8 @@ flutter:
     - assets/images/projects/volta/
     - assets/images/projects/semolis/
     - assets/images/projects/recharge/
+    - assets/images/projects/hotpot/
+    - assets/images/projects/taskflow/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

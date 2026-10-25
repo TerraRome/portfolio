@@ -33,7 +33,59 @@ void main() {
     final sorted = sortedProjects(projectList);
     expect(sorted.length, projectList.length);
     expect(sorted.take(4).every((p) => p.status == ProjectStatus.live), isTrue);
+    // Demos come after every live project, before in-progress work.
+    final firstDemo = sorted.indexWhere((p) => p.status == ProjectStatus.demo);
+    expect(
+      sorted.skip(firstDemo).every((p) => p.status != ProjectStatus.live),
+      isTrue,
+    );
     expect(sorted.map((p) => p.name).toSet().length, projectList.length);
+  });
+
+  // Both are finished builds with public source and no product URL, so the
+  // badge says Demo and the only link is the repo.
+  testWidgets('hot pot and taskflow carry a demo badge and a source link',
+      (tester) async {
+    for (final prefix in ['Crimson Dragon', 'TaskFlow']) {
+      final p = projectList.firstWhere((x) => x.name.startsWith(prefix));
+      expect(p.status, ProjectStatus.demo);
+      expect(p.image, isNotNull);
+      expect(p.gallery.length, greaterThanOrEqualTo(8), reason: p.name);
+      expect(p.links.single.label.en, 'Source code');
+      expect(p.links.single.url, startsWith('https://github.com/TerraRome/'));
+      // Portrait screenshots must be phone-shaped, not square or landscape.
+      expect(p.gallery.first.label.en, anyOf('Sign in', 'Onboarding'));
+    }
+
+    await tester.binding.setSurfaceSize(const Size(1440, 900));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    await tester.pumpWidget(const PortfolioApp());
+    await tester.pump(const Duration(milliseconds: 300));
+
+    // The grid shows four featured cards; the demos sit behind the toggle.
+    final page = find
+        .byWidgetPredicate(
+          (w) => w is Scrollable && w.axisDirection == AxisDirection.down,
+        )
+        .first;
+    final toggle = find.textContaining('Show all');
+    for (var i = 0; i < 20 && toggle.evaluate().isEmpty; i++) {
+      await tester.drag(page, const Offset(0, -600));
+      await tester.pump(const Duration(milliseconds: 60));
+    }
+    await tester.ensureVisible(toggle);
+    await tester.pump(const Duration(milliseconds: 200));
+    await tester.tap(toggle);
+    await tester.pump(const Duration(milliseconds: 300));
+
+    for (var i = 0; i < 20 && find.text('DEMO').evaluate().isEmpty; i++) {
+      await tester.drag(page, const Offset(0, -600));
+      await tester.pump(const Duration(milliseconds: 60));
+    }
+
+    expect(find.text('DEMO'), findsWidgets);
+    expect(find.text('Source code'), findsWidgets);
+    expect(tester.takeException(), isNull);
   });
 
   // Lays out at mobile/tablet/desktop in both themes, scrolls the full page and
@@ -223,11 +275,13 @@ void main() {
     expect(find.text('Website'), findsWidgets);
   });
 
-  // SigApp has no screenshot: it must fall back to the text panel (its first
-  // tech as the monogram), not an empty box or a code snippet.
+  // SigApp has no screenshot: it must fall back to the text panel (its brand
+  // name as the monogram), not an empty box or a code snippet.
   testWidgets('sigapp uses the text panel', (tester) async {
     final sigapp = projectList.firstWhere((p) => p.name.startsWith('SigApp'));
     expect(sigapp.image, isNull);
+    final brand = sigapp.name.split(' — ').first;
+    expect(brand, 'SigApp');
 
     await tester.binding.setSurfaceSize(const Size(375, 812));
     addTearDown(() => tester.binding.setSurfaceSize(null));
@@ -240,8 +294,9 @@ void main() {
       await tester.pump(const Duration(milliseconds: 30));
     }
     expect(tester.takeException(), isNull);
-    expect(find.text(sigapp.name.toUpperCase()), findsOneWidget);
-    expect(find.text(sigapp.techStack.first), findsWidgets);
+    expect(find.text(brand), findsOneWidget);
+    expect(find.text(sigapp.techStack.take(3).join(' · ').toUpperCase()),
+        findsOneWidget);
   });
 
   // Every screenshot referenced by the data must actually be bundled.

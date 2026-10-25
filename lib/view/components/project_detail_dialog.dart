@@ -186,6 +186,7 @@ class _StatusLine extends StatelessWidget {
     final h = context.hermes;
     final color = switch (status) {
       ProjectStatus.live => h.success,
+      ProjectStatus.demo => h.info,
       ProjectStatus.inProgress => h.warning,
       ProjectStatus.comingSoon => h.muted,
     };
@@ -286,7 +287,10 @@ class _Gallery extends StatelessWidget {
                         shot.asset,
                         fit: BoxFit.cover,
                         alignment: Alignment.topCenter,
-                        cacheWidth: 264,
+                        // Animated GIFs must not be resized by the decoder or
+                        // only the first frame survives.
+                        cacheWidth:
+                            shot.asset.endsWith('.gif') ? null : 264,
                         errorBuilder: (_, __, ___) => const SizedBox.shrink(),
                       ),
                     ),

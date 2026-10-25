@@ -68,6 +68,7 @@ class AppStrings {
     required this.modalLinks,
     required this.modalClose,
     required this.statusLive,
+    required this.statusDemo,
     required this.statusInProgress,
     required this.statusComingSoon,
   });
@@ -138,6 +139,7 @@ class AppStrings {
   final String modalClose;
 
   final String statusLive;
+  final String statusDemo;
   final String statusInProgress;
   final String statusComingSoon;
 
@@ -161,7 +163,7 @@ const AppStrings en = AppStrings(
   heroCv: 'Download CV',
   heroContact: 'Contact Me',
   proofYears: '4+ yrs Flutter',
-  proofProjects: '8 projects',
+  proofProjects: '10 projects',
   proofStack: 'Flutter · BLoC · Firebase',
   aboutEyebrow: 'About',
   aboutHeading: 'Shipping mobile since 2019.',
@@ -212,6 +214,7 @@ const AppStrings en = AppStrings(
   modalLinks: 'Links',
   modalClose: 'Close',
   statusLive: 'Live',
+  statusDemo: 'Demo',
   statusInProgress: 'In Progress',
   statusComingSoon: 'Coming Soon',
 );
@@ -234,7 +237,7 @@ const AppStrings id = AppStrings(
   heroCv: 'Unduh CV',
   heroContact: 'Hubungi Saya',
   proofYears: '4+ thn Flutter',
-  proofProjects: '8 proyek',
+  proofProjects: '10 proyek',
   proofStack: 'Flutter · BLoC · Firebase',
   aboutEyebrow: 'Tentang',
   aboutHeading: 'Mengirim aplikasi mobile sejak 2019.',
@@ -288,6 +291,7 @@ const AppStrings id = AppStrings(
   modalLinks: 'Tautan',
   modalClose: 'Tutup',
   statusLive: 'Live',
+  statusDemo: 'Demo',
   statusInProgress: 'Sedang Dikerjakan',
   statusComingSoon: 'Segera Hadir',
 );

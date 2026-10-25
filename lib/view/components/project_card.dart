@@ -230,6 +230,7 @@ class _StatusBadge extends StatelessWidget {
     final h = context.hermes;
     final color = switch (status) {
       ProjectStatus.live => h.success,
+      ProjectStatus.demo => h.info,
       ProjectStatus.inProgress => h.warning,
       ProjectStatus.comingSoon => h.muted,
     };
@@ -281,16 +282,23 @@ class _FallbackPanel extends StatelessWidget {
           Positioned.fill(
             child: Center(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: spacingMd),
-                child: Text(
-                  project.techStack.isEmpty ? project.name : project.techStack.first,
-                  maxLines: 1,
-                  overflow: TextOverflow.clip,
-                  style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                        color: h.primaryInk.withValues(alpha: 0.85),
-                        fontSize: 34,
-                        letterSpacing: 0.08,
-                      ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: spacingMd,
+                  vertical: 24,
+                ),
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    // The brand, not the first tech — otherwise six cards all
+                    // read "Flutter".
+                    project.name.split(' — ').first,
+                    maxLines: 1,
+                    style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                          color: h.primaryInk.withValues(alpha: 0.85),
+                          fontSize: 34,
+                          letterSpacing: 0.08,
+                        ),
+                  ),
                 ),
               ),
             ),
@@ -300,7 +308,7 @@ class _FallbackPanel extends StatelessWidget {
             right: spacingMd,
             bottom: 14,
             child: Text(
-              project.name.toUpperCase(),
+              project.techStack.take(3).join(' · ').toUpperCase(),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: Theme.of(context).textTheme.labelSmall?.copyWith(

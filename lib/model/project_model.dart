@@ -12,19 +12,25 @@ import 'package:flutter_portfolio/res/strings.dart';
 
 enum ProjectStatus {
   live,
+
+  /// Finished build with public source, no deployed product URL.
+  demo,
   inProgress,
   comingSoon;
 
   String get label => switch (this) {
         ProjectStatus.live => appStrings.value.statusLive,
+        ProjectStatus.demo => appStrings.value.statusDemo,
         ProjectStatus.inProgress => appStrings.value.statusInProgress,
         ProjectStatus.comingSoon => appStrings.value.statusComingSoon,
       };
 
+  // Ranks are spaced by 2 so the "no visual" +1 penalty never ties.
   int get sortRank => switch (this) {
         ProjectStatus.live => 0,
-        ProjectStatus.inProgress => 2,
-        ProjectStatus.comingSoon => 3,
+        ProjectStatus.demo => 2,
+        ProjectStatus.inProgress => 4,
+        ProjectStatus.comingSoon => 6,
       };
 }
 
@@ -97,6 +103,7 @@ List<Project> sortedProjects(List<Project> input) {
 }
 
 const Loc _website = Loc('Website', 'Situs Web');
+const Loc _source = Loc('Source code', 'Kode sumber');
 
 const List<Project> projectList = [
   Project(
@@ -501,6 +508,182 @@ const List<Project> projectList = [
       Loc(
         'Sales, stock and cash reconciled in one system.',
         'Penjualan, stok, dan kas tercatat di satu sistem.',
+      ),
+    ],
+  ),
+  Project(
+    name: 'Crimson Dragon Hot Pot — Delivery',
+    status: ProjectStatus.demo,
+    role: Loc('Mobile Developer (Flutter)', 'Mobile Developer (Flutter)'),
+    year: '2026',
+    summary: Loc(
+      'Hot pot delivery app: 26 screens from onboarding to live rider '
+          'tracking, on a crimson-and-gold design system built from scratch.',
+      'Aplikasi pesan-antar hot pot: 26 layar dari onboarding sampai pelacakan '
+          'kurir langsung, dengan design system crimson dan emas dari nol.',
+    ),
+    problem: Loc(
+      'A delivery app has to carry the whole journey — sign in, browse, cart, '
+          'payment, tracking — without a dead end, and look like a restaurant '
+          'rather than a template.',
+      'Aplikasi pesan-antar harus membawa seluruh alur — masuk, jelajah menu, '
+          'keranjang, pembayaran, pelacakan — tanpa jalan buntu, dan tampil '
+          'seperti restoran, bukan template.',
+    ),
+    solution: Loc(
+      'Built all 26 routes in Flutter with GoRouter typed arguments, a Riverpod '
+          'state layer, and a Material 3 theme drawn from crimson and gold '
+          'tokens. The live-tracking map is a CustomPainter — no map SDK.',
+      'Membangun 26 rute di Flutter dengan GoRouter typed arguments, lapisan '
+          'state Riverpod, dan tema Material 3 dari token crimson dan emas. '
+          'Peta pelacakan langsung digambar dengan CustomPainter — tanpa SDK '
+          'peta.',
+    ),
+    techStack: ['Flutter', 'Riverpod', 'GoRouter', 'Material 3', 'CustomPainter'],
+    impact: [
+      Loc(
+        '26 routes, every screen reachable, no placeholder pages.',
+        '26 rute, semua layar bisa dicapai, tanpa halaman placeholder.',
+      ),
+      Loc(
+        'Live-tracking map drawn on canvas, so no map SDK or API key is needed.',
+        'Peta pelacakan digambar di canvas, jadi tidak perlu SDK peta atau API '
+            'key.',
+      ),
+      Loc(
+        'OTP input, spice-level selector and animated splash built from scratch.',
+        'Input OTP, pemilih level pedas, dan splash animasi dibuat dari nol.',
+      ),
+    ],
+    image: 'assets/images/projects/hotpot/main-image.png',
+    imageAlt: 'Crimson Dragon Hot Pot banner',
+    links: [
+      ProjectLink(label: _source, url: 'https://github.com/TerraRome/Hot-Pot'),
+    ],
+    // Ordered as the diner walks the app: sign in, Home, then the order flow.
+    gallery: [
+      ProjectShot(
+        asset: 'assets/images/projects/hotpot/signin.webp',
+        label: Loc('Sign in', 'Masuk'),
+      ),
+      ProjectShot(
+        asset: 'assets/images/projects/hotpot/onboarding.gif',
+        label: Loc('Onboarding', 'Onboarding'),
+      ),
+      ProjectShot(
+        asset: 'assets/images/projects/hotpot/home.webp',
+        label: Loc('Home', 'Beranda'),
+      ),
+      ProjectShot(
+        asset: 'assets/images/projects/hotpot/product-detail.gif',
+        label: Loc('Product detail', 'Detail produk'),
+      ),
+      ProjectShot(
+        asset: 'assets/images/projects/hotpot/cart.gif',
+        label: Loc('Cart', 'Keranjang'),
+      ),
+      ProjectShot(
+        asset: 'assets/images/projects/hotpot/order-tracking.webp',
+        label: Loc('Order tracking', 'Pelacakan pesanan'),
+      ),
+      ProjectShot(
+        asset: 'assets/images/projects/hotpot/live-tracking.gif',
+        label: Loc('Live tracking', 'Pelacakan langsung'),
+      ),
+      ProjectShot(
+        asset: 'assets/images/projects/hotpot/profile.gif',
+        label: Loc('Profile', 'Profil'),
+      ),
+      ProjectShot(
+        asset: 'assets/images/projects/hotpot/loyalty.gif',
+        label: Loc('Loyalty & rewards', 'Poin & hadiah'),
+      ),
+    ],
+  ),
+  Project(
+    name: 'TaskFlow — Task Manager',
+    status: ProjectStatus.demo,
+    role: Loc('Mobile Developer (Flutter)', 'Mobile Developer (Flutter)'),
+    year: '2026',
+    summary: Loc(
+      'Task manager with schedules, projects and statistics: 14 screens, dark '
+          'mode, and offline persistence with no backend.',
+      'Manajer tugas dengan jadwal, proyek, dan statistik: 14 layar, mode '
+          'gelap, dan penyimpanan offline tanpa backend.',
+    ),
+    problem: Loc(
+      'Task apps usually need an account and lose the day\'s work when the '
+          'network does, and project counts drift between screens.',
+      'Aplikasi tugas biasanya butuh akun dan kehilangan pekerjaan hari ini '
+          'saat jaringan putus, sementara hitungan tugas proyek melenceng antar '
+          'layar.',
+    ),
+    solution: Loc(
+      'Built TaskFlow local-first: Hive with hand-written TypeAdapters, a '
+          'Riverpod state layer with derived providers, and a custom '
+          'InheritedWidget theme that switches dark mode without a restart.',
+      'Membangun TaskFlow local-first: Hive dengan TypeAdapter tulisan tangan, '
+          'lapisan state Riverpod dengan derived provider, dan tema '
+          'InheritedWidget sendiri yang mengganti mode gelap tanpa restart.',
+    ),
+    techStack: ['Flutter', 'Riverpod', 'Hive', 'SharedPreferences'],
+    impact: [
+      Loc(
+        'Tasks and projects survive a restart with no backend at all.',
+        'Tugas dan proyek tetap ada setelah aplikasi ditutup, tanpa backend.',
+      ),
+      Loc(
+        'One derived provider feeds Projects, Project Detail and Statistics, so '
+            'counts cannot disagree.',
+        'Satu derived provider memasok Projects, Project Detail, dan '
+            'Statistics, jadi hitungan tidak bisa berbeda.',
+      ),
+      Loc(
+        'Dark mode across all 14 screens from a single token set.',
+        'Mode gelap di 14 layar dari satu set token.',
+      ),
+    ],
+    image: 'assets/images/projects/taskflow/main-image.png',
+    imageAlt: 'TaskFlow banner',
+    links: [
+      ProjectLink(
+        label: _source,
+        url: 'https://github.com/TerraRome/TaskManager',
+      ),
+    ],
+    // Ordered as the user walks the app: onboarding, Home, then the task flow.
+    gallery: [
+      ProjectShot(
+        asset: 'assets/images/projects/taskflow/onboarding.gif',
+        label: Loc('Onboarding', 'Onboarding'),
+      ),
+      ProjectShot(
+        asset: 'assets/images/projects/taskflow/home.webp',
+        label: Loc('Home', 'Beranda'),
+      ),
+      ProjectShot(
+        asset: 'assets/images/projects/taskflow/schedule.webp',
+        label: Loc('Schedule', 'Jadwal'),
+      ),
+      ProjectShot(
+        asset: 'assets/images/projects/taskflow/new-task.gif',
+        label: Loc('New task', 'Tugas baru'),
+      ),
+      ProjectShot(
+        asset: 'assets/images/projects/taskflow/task-detail.webp',
+        label: Loc('Task detail', 'Detail tugas'),
+      ),
+      ProjectShot(
+        asset: 'assets/images/projects/taskflow/projects.webp',
+        label: Loc('Projects', 'Proyek'),
+      ),
+      ProjectShot(
+        asset: 'assets/images/projects/taskflow/statistics.webp',
+        label: Loc('Statistics', 'Statistik'),
+      ),
+      ProjectShot(
+        asset: 'assets/images/projects/taskflow/home-dark.webp',
+        label: Loc('Home, dark mode', 'Beranda, mode gelap'),
       ),
     ],
   ),
