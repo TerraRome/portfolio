@@ -8,7 +8,8 @@ import '../components/project_card.dart';
 import '../components/project_detail_dialog.dart';
 import '../components/section_header.dart';
 
-/// First four of `sortedProjects` are featured; the rest sit behind a toggle.
+/// Six of `sortedProjects` are featured — every shipped product plus the two
+/// demo builds; the rest sit behind a toggle.
 class ProjectsSection extends StatefulWidget {
   const ProjectsSection({super.key, required this.index});
 
@@ -19,7 +20,7 @@ class ProjectsSection extends StatefulWidget {
 }
 
 class _ProjectsSectionState extends State<ProjectsSection> {
-  static const int featuredCount = 4;
+  static const int featuredCount = 6;
   bool _expanded = false;
 
   @override

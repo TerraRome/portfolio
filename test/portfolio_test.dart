@@ -29,14 +29,18 @@ void main() {
     themeMode.value = ThemeMode.dark;
   });
 
-  test('sortedProjects: live first, every project kept', () {
+  test('sortedProjects: finished work first, every project kept', () {
     final sorted = sortedProjects(projectList);
     expect(sorted.length, projectList.length);
-    expect(sorted.take(4).every((p) => p.status == ProjectStatus.live), isTrue);
-    // Demos come after every live project, before in-progress work.
-    final firstDemo = sorted.indexWhere((p) => p.status == ProjectStatus.demo);
+    // Live and demo share the top rank; both are finished builds.
     expect(
-      sorted.skip(firstDemo).every((p) => p.status != ProjectStatus.live),
+      sorted.take(5).every((p) => p.status != ProjectStatus.inProgress),
+      isTrue,
+    );
+    expect(sorted.take(3).every((p) => p.status == ProjectStatus.live), isTrue);
+    // At least one demo is featured, so the new work is not buried.
+    expect(
+      sorted.take(4).any((p) => p.status == ProjectStatus.demo),
       isTrue,
     );
     expect(sorted.map((p) => p.name).toSet().length, projectList.length);

@@ -25,12 +25,12 @@ enum ProjectStatus {
         ProjectStatus.comingSoon => appStrings.value.statusComingSoon,
       };
 
-  // Ranks are spaced by 2 so the "no visual" +1 penalty never ties.
+  // Finished work shares a rank: the badge, not the order, tells a shipped
+  // product from a demo. Visuals break the tie, then list order.
   int get sortRank => switch (this) {
-        ProjectStatus.live => 0,
-        ProjectStatus.demo => 2,
-        ProjectStatus.inProgress => 4,
-        ProjectStatus.comingSoon => 6,
+        ProjectStatus.live || ProjectStatus.demo => 0,
+        ProjectStatus.inProgress => 2,
+        ProjectStatus.comingSoon => 3,
       };
 }
 
